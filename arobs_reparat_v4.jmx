@@ -132,7 +132,7 @@ vars.putObject(&quot;jobList&quot;,jobList);</stringProp>
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/jobs/search?pr=1&amp;schemaId=&amp;o=&amp;in_iframe=1</stringProp>
+            <stringProp name="HTTPSampler.path">/jobs/search?ss=1&amp;in_iframe=1</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -432,15 +432,22 @@ for( country_code in countries)
 		case &quot;HU&quot;:
 			country = &quot;Hungary&quot;
 			break;
+		case &quot;TR&quot;:
+			country = &quot;Turkey&quot;;
+			break;
 		default:
-			log.warn(&quot;Unkown country: &quot;+conuntry_code)
+			log.warn(&quot;Unkown country: &quot;+country_code)
 			continue
 		}
 	log.info(country)
 	for (loc in splitted){
 		var locsplit=loc.split(&quot;-&quot;);
 		if(locsplit[0]==country_code)
-			city &lt;&lt; (&quot;\&quot;&quot; + locsplit[1] + &quot;\&quot;&quot;);
+			if(locsplit.length == 1){
+				city &lt;&lt; (&quot;\&quot;Remote\&quot;&quot;);
+			}
+			else
+				city &lt;&lt; (&quot;\&quot;&quot; + locsplit[1] + &quot;\&quot;&quot;);
 	}
 	var id = UUID.randomUUID().toString();
 	String this_job = &apos;{&quot;id&quot;:&quot;&apos;+id+&apos;&quot;,&quot;job_title&quot;:&quot;&apos;+title+&apos;&quot;, &quot;job_link&quot;:&quot;&apos;+link+&apos;&quot;,&quot;company&quot;:&quot;${company}&quot;,&quot;country&quot;:&quot;&apos;+country+&apos;&quot;,&quot;city&quot;:&apos;+city+&apos;}&apos;;
